@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+
+Route::view('/login',"login")->name('login');
+Route::view('/registro',"registro")->name('registro');
+Route::view('/inicio',"inicio")->middleware('auth')->name('inicio');
+
+Route::post('/validar-registro',[LoginController::class,'registro'])->name('validar-registro');
+Route::post('/inicia-sesion',[LoginController::class,'login'])->name('inicia-sesion');
+Route::get('/logout',[LoginController::class,'logout'])->name('logout');
