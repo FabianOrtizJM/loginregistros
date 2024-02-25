@@ -33,6 +33,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Registro</button>
         </form>
+        
         <p class="text-center">¿Ya tienes cuenta? <a href="{{route('login')}}">Inicia Sesion</a></p>
     </div>   
 </body>
