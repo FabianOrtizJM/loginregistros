@@ -13,7 +13,17 @@
     <div class="container align-center offset-md-3 col-md-6 p-5 bg-info">
         <h1 class="text-center">Incia sesion</h1>
         <form method="POST" action="{{route('inicia-sesion')}}">
-        @csrf
+            @if (session('success'))
+            <div class="alert alert-success">
+            {{ session('success') }}
+            </div>
+            @endif
+            @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
+            @csrf
         <div class="mb-3">
             <label for="email" class="form-label">Correo</label>
             <input type="email" class="form-control" id="email" name="email">
@@ -21,6 +31,12 @@
         <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" class="form-control" name="password" id="password">
+        </div>
+        <div class="mb-3">
+            <div class="mb-3">
+                <div id="recaptcha_form"></div>
+                {!! GoogleReCaptchaV2::render('recaptcha_form') !!}
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">Inicia Sesion</button>
         </form>

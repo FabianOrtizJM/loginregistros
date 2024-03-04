@@ -23,4 +23,6 @@ Route::view('/inicio',"inicio")->middleware('auth')->name('inicio');
 
 Route::post('/validar-registro',[LoginController::class,'registro'])->name('validar-registro');
 Route::post('/inicia-sesion',[LoginController::class,'login'])->name('inicia-sesion');
+Route::get('/inicia-sesion',[LoginController::class,'login'])->name('inicia-sesion');
 Route::get('/logout',[LoginController::class,'logout'])->name('logout');
+Route::post('/login-two-factor/{user}', [LoginController::class, 'login2FA'])->name('login2fa');
