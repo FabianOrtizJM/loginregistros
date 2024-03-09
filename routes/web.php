@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\LoginController;
+use GuzzleHttp\Middleware;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,10 +21,11 @@ Route::get('/', function () {
 
 Route::view('/login',"login")->name('login');
 Route::view('/registro',"registro")->name('registro');
-Route::view('/inicio',"inicio")->middleware('auth')->name('inicio');
+Route::view('/inicio',"inicio")->middleware('auth','signed')->name('inicio');
+
 
 Route::post('/validar-registro',[LoginController::class,'registro'])->name('validar-registro');
 Route::post('/inicia-sesion',[LoginController::class,'login'])->name('inicia-sesion');
-Route::get('/inicia-sesion',[LoginController::class,'login'])->name('inicia-sesion');
+Route::get('/inicia-sesion',[LoginController::class,'login'])->Middleware('auth','signed')->name('inicia-sesion');
 Route::get('/logout',[LoginController::class,'logout'])->name('logout');
 Route::post('/login-two-factor/{user}', [LoginController::class, 'login2FA'])->name('login2fa');

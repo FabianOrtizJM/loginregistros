@@ -15,6 +15,7 @@ use Spatie\Permission\Traits\HasRoles;
 use TimeHunter\LaravelGoogleReCaptchaV2\Validations\GoogleReCaptchaV2ValidationRule;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
@@ -84,23 +85,23 @@ class LoginController extends Controller
             "email" => $request->email,
             "password" => $request->password,
         ];
-        $remember = ($request->has('remember') ? true : false);
-        if(Auth::attempt($credentials,$remember)){
-            $request->session()->regenerate();
-                $user = Auth::user();
-                if($user->hasRole('Administrador')){
-                    Log::info('Se inicio sesion como administrador con los siguientes datos: ' . ' email: '. $request->email . ' ip: ' . $request->ip());
-                    return view("auth2fa", compact('user'));  
-                }else{
-                    Log::info('Se inicio sesion como usuario con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
-                }  
-            return redirect()->intended(route('inicio'));
-        }else{
-            Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
-            return redirect()->route('login')->with(['error' => 'Datos no validos, vuelve a intentarlo']);
-        }
 
-      
+        if(Auth::once($credentials)){
+        $user = Auth::user();
+        if($user->hasRole('Administrador')){
+            return view("auth2fa", compact('user'));  
+        }else{
+            if(Auth::attempt($credentials)){
+                Log::info('Se inicio sesion como usuario con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
+                $request->session()->regenerate();
+                $urlFirmada = URL::signedRoute('inicio');
+                return redirect()->away($urlFirmada);
+            }else{
+                Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
+                return redirect()->route('login')->with(['error' => 'Datos no validos, vuelve a intentarlo']);
+            }    
+        }            
+        }
     }
 
     public function logout(Request $request){
@@ -121,8 +122,9 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         Auth::login($user);
-
-        return redirect()->route('inicio');
+        $urlFirmada = URL::signedRoute('inicio');
+        Log::info('Se inicio sesion como administrador con los siguientes datos: ' . ' email: '. $request->email . ' ip: ' . $request->ip());
+        return redirect()->away($urlFirmada);
     }
     return redirect()->back()->withErrors(['error'=> 'Código de verificación incorrecto']);
     }
