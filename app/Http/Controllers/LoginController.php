@@ -10,8 +10,6 @@ use Illuminate\support\facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-use Spatie\Permission\Contracts\Role;
-use Spatie\Permission\Traits\HasRoles;
 use TimeHunter\LaravelGoogleReCaptchaV2\Validations\GoogleReCaptchaV2ValidationRule;
 use PragmaRX\Google2FA\Google2FA;
 use Illuminate\Support\Facades\Crypt;
@@ -88,7 +86,7 @@ class LoginController extends Controller
 
         if(Auth::once($credentials)){
         $user = Auth::user();
-        if($user->hasRole('Administrador')){
+        if($user -> hasRole('Administrador')){
             return view("auth2fa", compact('user'));  
         }else{
             if(Auth::attempt($credentials)){
