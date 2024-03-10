@@ -17,6 +17,18 @@ use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
+    public function mostrarFormularioRegistro()
+    {
+        return view('registro');
+    }
+    public function mostrarFormulariologin()
+    {
+        return view('login');
+    }
+    public function mostrarFormularioinicio()
+    {
+        return view('inicio');
+    }
     public function registro(Request $request){
         
         $validator = Validator::make($request->all(), [

@@ -19,9 +19,9 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::view('/login',"login")->name('login');
-Route::view('/registro',"registro")->name('registro');
-Route::view('/inicio',"inicio")->middleware('auth','signed')->name('inicio');
+Route::get('/login',[LoginController::class,'mostrarFormulariologin'])->name('login');
+Route::get('/registro',[LoginController::class,'mostrarFormularioRegistro'])->name('registro');
+Route::get('/inicio',[LoginController::class,'mostrarFormularioinicio'])->middleware('auth','signed')->name('inicio');
 
 
 Route::post('/validar-registro',[LoginController::class,'registro'])->name('validar-registro');
