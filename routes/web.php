@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\http\Controllers\LoginController;
+use App\http\Controllers\AuthController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -19,13 +19,13 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/login',[LoginController::class,'mostrarFormulariologin'])->name('login');
-Route::get('/registro',[LoginController::class,'mostrarFormularioRegistro'])->name('registro');
-Route::get('/inicio',[LoginController::class,'mostrarFormularioinicio'])->middleware('auth','signed')->name('inicio');
+Route::get('/login',[AuthController::class,'mostrarFormulariologin'])->name('login');
+Route::get('/registro',[AuthController::class,'mostrarFormularioRegistro'])->name('registro');
+Route::get('/inicio',[AuthController::class,'mostrarFormularioinicio'])->middleware('auth','signed')->name('inicio');
 
 
-Route::post('/validar-registro',[LoginController::class,'registro'])->name('validar-registro');
-Route::post('/inicia-sesion',[LoginController::class,'login'])->name('inicia-sesion');
-Route::get('/inicia-sesion',[LoginController::class,'login'])->Middleware('auth','signed')->name('inicia-sesion');
-Route::get('/logout',[LoginController::class,'logout'])->name('logout');
-Route::post('/login-two-factor/{user}', [LoginController::class, 'login2FA'])->name('login2fa');
+Route::post('/validar-registro',[AuthController::class,'registro'])->name('validar-registro');
+Route::post('/inicia-sesion',[AuthController::class,'login'])->name('inicia-sesion');
+Route::get('/inicia-sesion',[AuthController::class,'login'])->Middleware('auth','signed')->name('inicia-sesion');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+Route::post('/login-two-factor/{user}', [AuthController::class, 'login2FA'])->name('login2fa');
