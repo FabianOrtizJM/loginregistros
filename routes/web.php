@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\http\Controllers\AuthController;
+use App\Http\Controllers\AuthController;
 use GuzzleHttp\Middleware;
 
 /*
@@ -26,6 +26,6 @@ Route::get('/inicio',[AuthController::class,'mostrarFormularioinicio'])->middlew
 
 Route::post('/validar-registro',[AuthController::class,'registro'])->name('validar-registro');
 Route::post('/inicia-sesion',[AuthController::class,'login'])->name('inicia-sesion');
-Route::get('/inicia-sesion',[AuthController::class,'login'])->Middleware('auth','signed')->name('inicia-sesion');
+Route::get('/inicia-sesion',[AuthController::class,'login'])->name('inicia-sesion');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 Route::post('/login-two-factor/{user}', [AuthController::class, 'login2FA'])->name('login2fa');

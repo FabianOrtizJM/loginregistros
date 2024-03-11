@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\support\facades\Hash;
-use Illuminate\support\facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
@@ -106,12 +106,11 @@ class AuthController extends Controller
                 $request->session()->regenerate();
                 $urlFirmada = URL::signedRoute('inicio');
                 return redirect()->away($urlFirmada);
-            }else{
-                Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
-                return redirect()->route('login')->with(['error' => 'Datos no validos, vuelve a intentarlo']);
-            }    
+            }
         }            
         }
+        Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
+        return redirect()->route('login')->with(['error' => 'Datos no validos, vuelve a intentarlo']);
     }
 
     public function logout(Request $request){
