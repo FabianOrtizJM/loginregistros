@@ -11,7 +11,7 @@
 <body>
     <br>
     <div class="container align-center offset-md-3 col-md-6 p-5 bg-info">
-        <h1 class="text-center">Incia sesion</h1>
+        <h1 class="text-center">Inicia sesion</h1>
         <form method="POST" action="{{route('inicia-sesion')}}">
             @if (session('success'))
             <div class="alert alert-success">
