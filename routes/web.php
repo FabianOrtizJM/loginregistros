@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CatalogoController;
 use GuzzleHttp\Middleware;
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,13 @@ use GuzzleHttp\Middleware;
 Route::get('/', function () {
     return view('login');
 });
+
+Route::get('/catalogo',[CatalogoController::class,'index'])->middleware('auth','signed')->name('catalogo');
+Route::get('/catalogo/create',[CatalogoController::class,'create'])->name('create');
+Route::post('/store',[CatalogoController::class,'store'])->name('store');
+Route::get('/edit/{id}',[CatalogoController::class,'edit'])->name('edit');
+Route::put('/update/{id}',[CatalogoController::class,'update'])->name('update');
+Route::delete('/delete/{id}',[CatalogoController::class,'destroy'])->name('delete');
 
 Route::get('/login',[AuthController::class,'mostrarFormulariologin'])->name('login');
 Route::get('/registro',[AuthController::class,'mostrarFormularioRegistro'])->name('registro');

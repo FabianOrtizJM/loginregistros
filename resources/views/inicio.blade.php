@@ -9,6 +9,11 @@
     <title>Inicio</title>
 </head>
 <body>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a href="/catalogo"><button type="button" class="btn btn-success">Catalogo</button></a>
+        </div>
+      </nav>
     <div class="container">
         <div class="col-md-3 offset-md-5 p-5">
             <h1 class="text-center">Bienvenido</h1>
