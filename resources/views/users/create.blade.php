@@ -8,7 +8,8 @@
   </head>
   <body>
     <div class="container align-center offset-md-2 col-md-8 p-5">
-    <form action="/store" method="POST">
+    <form action="/users" method="POST">
+        @method('POST')
     @csrf
     <div class="mb-3">
         <label for="" class="form-label">Nombre</label>
