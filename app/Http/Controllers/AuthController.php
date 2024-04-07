@@ -96,6 +96,7 @@ class AuthController extends Controller
         if(Auth::once($credentials)){
         $user = Auth::user();
         if($user->hasRole('Administrador')){
+            dd($request->ip());
             $user->token_login = '';
             $user->triple_factor_code = Crypt::encryptString($code = rand(9999, 1000));
             $user->save();
