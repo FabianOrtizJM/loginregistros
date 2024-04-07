@@ -34,7 +34,7 @@ class UserController extends Controller
             'password' => 'required|min:8|max:30|confirmed',
         ]);
         if($validator->fails()) {
-            return redirect()->route('users.index')->withErrors($validator)->withInput();
+            return redirect()->route('users.index')->withErrors($validator->errors());
         }
         $user = new User();
         $user->name = $request->name;
