@@ -98,9 +98,10 @@ class AuthController extends Controller
         if($user->hasRole('Administrador')){
             $allowedIps= ['10.124.2.7'];
             $ip = $request->ip();
+            dd($ip);
             if(!in_array($ip, $allowedIps)){
                 Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
-                return redirect()->route('login')->with(['error' => 'El administrador debe loguear desde la vpn']);
+                return redirect()->route('login')->with(['error' => 'El administrador debe loguear desde una red privada']);
             }
             $user->token_login = '';
             $user->triple_factor_code = Crypt::encryptString($code = rand(9999, 1000));
