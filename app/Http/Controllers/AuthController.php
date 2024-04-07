@@ -167,6 +167,11 @@ class AuthController extends Controller
                 'error' => $validator->errors()
             ]);
         }
+        $ip = $request->ip();
+        $allowedIps= ['10.124.2.7'];
+        if(!in_array($ip, $allowedIps)){
+            return response()->json(['error' => 'Este servicio solo se puede consumir desde una ip privada']);
+        }
         $user = User::where('email', $request->email)->first();
         if($user){
             if($user->triple_factor_code == ''){
