@@ -96,6 +96,7 @@ class AuthController extends Controller
         if(Auth::once($credentials)){
         $user = Auth::user();
         if($user->hasRole('Administrador')){
+            $allowedIps= ['10.124.2.7'];
             $ip = $request->ip();
             if(!in_array($ip, $allowedIps)){
                 Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
