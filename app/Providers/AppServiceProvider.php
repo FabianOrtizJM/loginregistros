@@ -19,12 +19,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $clientIP = request()->ip();
-        $allowedIPS = ['10.124.2.7'];
-        if (in_array($clientIP, $allowedIPS)) {
-            config(['database.default' => 'pgsql']);
-        } else {
-            config(['database.default' => 'pgsql2']);
-        }
+        // $clientIP = request()->ip();
+        // $allowedIPS = ['10.124.2.7'];
+        // if (in_array($clientIP, $allowedIPS)) {
+        //     config(['database.default' => 'pgsql']);
+        // } else {
+        //     config(['database.default' => 'pgsql2']);
+        // }
     }
 }
