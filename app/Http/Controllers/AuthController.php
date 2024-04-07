@@ -107,11 +107,13 @@ class AuthController extends Controller
             Mail::to($user->email)->send(new CodeMail($code, $user->email));
             return view("auth2fa", compact('user'))->with(['success' => 'Se ha enviado un código de verificación a tu correo']);
         }
-        $allowedIps= ['10.124.2.7'];
-        $ip = $request->ip();
-        if(in_array($ip, $allowedIps)){
-            Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip());
-            return redirect()->route('login')->with(['error' => 'El usuario no puede loguear desde una red privada']);
+        if(!$user->hasRole('Coordinador')){
+            $allowedIps= ['10.124.2.7'];
+            $ip = $request->ip();
+            if(in_array($ip, $allowedIps)){
+                Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip());
+                return redirect()->route('login')->with(['error' => 'El usuario no puede loguear desde una red privada']);
+            }
         }
         $user->token_login = Crypt::encryptString($code = rand(9999, 1000));
         $user->save();
