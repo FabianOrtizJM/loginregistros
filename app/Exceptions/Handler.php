@@ -39,15 +39,15 @@ class Handler extends ExceptionHandler
      * @param  \Throwable  $exception
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function render($request, Throwable $exception)
-    {
-        if ($exception instanceof HttpException) {
-            return response()->view('error');
-        }
-
-        // Redirigir a una vista para otros tipos de excepciones
-        return response()->view('error');
-    }
+    #public function render($request, Throwable $exception)
+    #{
+    #    if ($exception instanceof HttpException) {
+    #        return response()->view('error');
+    #    }
+#
+#        // Redirigir a una vista para otros tipos de excepciones
+#        return response()->view('error');
+#    }
 
     /**
      * Report or log an exception.
