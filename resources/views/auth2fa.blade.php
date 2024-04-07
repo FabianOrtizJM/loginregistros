@@ -14,6 +14,7 @@
           <div class="col-md-8">
             <div class="card">
               <div class="card-header">{{ __('Login 2FA') }}</div>
+              <h2>Verifica tu correo e ingresa aqui el codigo recibido</h2>
               <div class="card-body">
                 <form method="POST" action="{{ route('login2fa',$user->id) }}" aria-label="{{ __('Login') }}">
                   @csrf

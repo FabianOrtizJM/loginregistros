@@ -13,6 +13,9 @@
         <div class="container-fluid">
             <a href="/catalogo"><button type="button" class="btn btn-success">Catalogo</button></a>
         </div>
+        <div class="container-fluid">
+            <a href="{{route('users.index')}}"><button type="button" class="btn btn-success">Usuarios</button></a>
+        </div>
       </nav>
     <div class="container">
         <div class="col-md-3 offset-md-5 p-5">
