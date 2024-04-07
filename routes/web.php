@@ -23,19 +23,19 @@ Route::get('/', function () {
 });
 
 
-Route::get('/catalogo',[CatalogoController::class,'index'])->name('catalogo');
-Route::get('/catalogo/create',[CatalogoController::class,'create'])->name('create');
-Route::post('/store',[CatalogoController::class,'store'])->name('store');
-Route::get('/edit/{id}',[CatalogoController::class,'edit'])->name('edit');
-Route::put('/update/{id}',[CatalogoController::class,'update'])->name('update');
-Route::delete('/delete/{id}',[CatalogoController::class,'destroy'])->name('delete');
+Route::get('/catalogo',[CatalogoController::class,'index'])->name('catalogo')->middleware(['verify.role:Administrador,Coordinador,Usuario','auth']);
+Route::get('/catalogo/create',[CatalogoController::class,'create'])->name('create')->middleware(['verify.role:Administrador,Coordinador','auth']);
+Route::post('/store',[CatalogoController::class,'store'])->name('store')->middleware(['verify.role:Administrador,Coordinador','auth']);
+Route::get('/edit/{id}',[CatalogoController::class,'edit'])->name('edit')->middleware(['verify.role:Administrador,Coordinador','auth']);
+Route::put('/update/{id}',[CatalogoController::class,'update'])->name('update')->middleware(['verify.role:Administrador,Coordinador','auth']);
+Route::delete('/delete/{id}',[CatalogoController::class,'destroy'])->name('delete')->middleware(['verify.role:Administrador,Coordinador','auth']);
 
-Route::get('/users',[UserController::class,'index'])->name('users.index');
-Route::get('/users/create',[UserController::class,'create'])->name('users.create');
-Route::post('/users',[UserController::class,'store'])->name('users.store');
-Route::get('/users/{id}/edit',[UserController::class,'edit'])->name('users.edit');
-Route::put('/users/{id}',[UserController::class,'update'])->name('users.update');
-Route::delete('/users/{id}',[UserController::class,'destroy'])->name('users.destroy');
+Route::get('/users',[UserController::class,'index'])->name('users.index')->middleware(['verify.role:Administrador,Coordinador','auth']);
+Route::get('/users/create',[UserController::class,'create'])->name('users.create')->middleware(['verify.role:Administrador','auth']);
+Route::post('/users',[UserController::class,'store'])->name('users.store')->middleware(['verify.role:Administrador','auth']);
+Route::get('/users/{id}/edit',[UserController::class,'edit'])->name('users.edit')->middleware(['verify.role:Administrador','auth']);
+Route::put('/users/{id}',[UserController::class,'update'])->name('users.update')->middleware(['verify.role:Administrador','auth']);
+Route::delete('/users/{id}',[UserController::class,'destroy'])->name('users.destroy')->middleware(['verify.role:Administrador','auth']);  
 
 Route::get('/login',[AuthController::class,'mostrarFormulariologin'])->name('login');
 Route::get('/registro',[AuthController::class,'mostrarFormularioRegistro'])->name('registro');

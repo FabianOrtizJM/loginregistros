@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,7 +21,8 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        $roles = DB::table('roles')->get();
+        return view('users.create')->with('roles', $roles);
     }
 
     /**
@@ -32,6 +34,7 @@ class UserController extends Controller
             'name' => 'required|max:50|unique:users',
             'email' => 'required|email|max:50|unique:users',
             'password' => 'required|min:8|max:30|confirmed',
+            'roles' => 'required|exists:roles,name',
         ]);
         if($validator->fails()) {
             return redirect()->route('users.index')->withErrors($validator->errors());
@@ -40,15 +43,16 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->assignRole($request->roles);
         $user->save();
-        dd($user);
         return redirect()->route('users.index')->with('success', 'User created successfully');
     }
 
     public function edit(String $id)
     {
         $user = User::find($id);
-        return view('users.edit')->with('user', $user);
+        $roles = DB::table('users')->select('roles.*')->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')->join('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('users.id', '=', $id)->first();
+        return view('users.edit')->with('user', $user)->with('roles', $roles);
     }
     /**
      * Display the specified resource.
@@ -65,17 +69,21 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:50|unique:users',
-            'email' => 'required|email|max:50|unique:users',
-            'password' => 'required|min:8|max:30|confirmed',
+            'name' => 'required|max:50',
+            'email' => 'required|email|max:50',
+            'password' => 'min:8|max:30|confirmed|nullable',
+            'rol' => 'required|exists:roles,name',
         ]);
         if($validator->fails()) {
             return redirect()->route('users.index')->withErrors($validator)->withInput();
         }
+        $user->removeRole($user->roles->first());
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->assignRole($request->rol);
         $user->save();
+        return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
     /**

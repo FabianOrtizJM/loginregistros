@@ -32,6 +32,14 @@
         <label for="password_confirmation" class="form-label">Confirmar Password</label>
         <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" tabindex="1">
     </div>
+    <div>
+        <label for="roles" class="form-label">Roles</label>
+        <select name="roles" id="roles" class="form-select">
+            @foreach($roles as $role)
+            <option value="{{$role->name}}">{{$role->name}}</option>
+            @endforeach
+        </select>
+    </div>
     <a href="/users" class="btn btn-secondary">Cancelar</a>
     <button type="submit" class="btn btn-primary">Guardar</button>
     </form>

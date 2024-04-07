@@ -8,11 +8,21 @@
   </head>
   <body>
     <div class="container align-center offset-md-2 col-md-8 p-5">
-    <form action="/users/{{$user->id}}" method="PUT">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="/users/{{$user->id}}" method="POST">
     @csrf
+    @method('PUT')
     <div class="mb-3">
         <label for="" class="form-label">Nombre</label>
-        <input id="nombre" name="nombre" type="text" class="form-control" tabindex="1" value="{{$user->name}}">
+        <input id="name" name="name" type="text" class="form-control" tabindex="1" value="{{$user->name}}">
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
@@ -21,6 +31,18 @@
     <div class="mb-3">
         <label for="password" class="form-label">Password</label>
         <input id="password" name="password" type="password" class="form-control" tabindex="1" >
+    </div>
+    <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Confirm Password</label>
+        <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" tabindex="1" >
+    </div>
+    <div>
+        <label for="roles" class="form-label">Roles</label>
+        <select name="rol" id="rol" class="form-select">
+            <option value="Administrador" @if ($roles->id == 1) selected @endif>Administrador</option>
+            <option value="Coordinador" @if ($roles->id == 3) selected @endif>Coordinador</option>
+            <option value="Usuario" @if ($roles->id == 2) selected @endif>Usuario</option>
+        </select>
     </div>
     <a href="/users" class="btn btn-secondary">Cancelar</a>
     <button type="submit" class="btn btn-primary">Guardar</button>

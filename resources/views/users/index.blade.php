@@ -7,6 +7,15 @@
     <title>Document</title>
 </head>
 <body>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @if (session('error'))
         <div style="color: white; background-color: red;">
             {{ session('error') }}
@@ -16,6 +25,20 @@
     <nav class="navbar bg-body-tertiary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Usuarios</a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/catalogo">Catalogo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users">Usuarios</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/inicio">Inicio</a>
+            </li>
+        </ul>
       </div>
     </nav>
     <div class="container align-center offset-md-2 col-md-8 p-5">
