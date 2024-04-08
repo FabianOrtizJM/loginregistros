@@ -15,7 +15,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/signed">Catalogo</a>
             </li>
-            @Role('Administrador|Coordinador')
+            @role('Administrador|Coordinador')
             <li class="nav-item">
                 <a class="nav-link" href="/signedusers">Usuarios</a>
             </li>
@@ -68,7 +68,7 @@
             @endforeach
         </tbody>
     </table>
-    @Role("Administrador|Coordinador")
+    @role("Administrador|Coordinador")
     <a href="createcatalogo" class="btn btn-primary">Crear</a>    
     @endrole
     </div>
