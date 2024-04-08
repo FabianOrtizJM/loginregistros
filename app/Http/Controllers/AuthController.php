@@ -31,6 +31,10 @@ class AuthController extends Controller
     {
         return view('inicio');
     }
+    public function signedinicio(){
+        $urlFirmada = URL::signedRoute('inicio');
+        return redirect()->away($urlFirmada);
+    }
     public function registro(Request $request){
         
         $validator = Validator::make($request->all(), [

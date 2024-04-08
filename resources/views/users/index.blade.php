@@ -27,16 +27,16 @@
         <a class="navbar-brand" href="#">Usuarios</a>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="/catalogo">Catalogo</a>
+                <a class="nav-link" href="/signed">Catalogo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/users">Usuarios</a>
+                <a class="nav-link" href="/signedusers">Usuarios</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/inicio">Inicio</a>
+                <a class="nav-link" href="/signedinicio">Inicio</a>
             </li>
         </ul>
       </div>
@@ -57,7 +57,7 @@
                 <td>{{$user->name}}</td>
                 @role('Administrador')
                 <td>
-                    <a href="/users/{{$user->id}}/edit" class="btn btn-info">Editar</a>
+                    <a href="/editusers/{{$user->id}}" class="btn btn-info">Editar</a>
                     <form action="/users/{{$user->id}}" method="POST">
                       @csrf
                       @method('DELETE')
@@ -69,7 +69,7 @@
             @endforeach
         </tbody>
     </table>
-    <a href="users/create" class="btn btn-primary">Crear</a>    
+    <a href="createusers" class="btn btn-primary">Crear</a>    
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>

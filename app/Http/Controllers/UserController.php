@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -24,7 +25,19 @@ class UserController extends Controller
         $roles = DB::table('roles')->get();
         return view('users.create')->with('roles', $roles);
     }
-
+    public function signedusers()
+    {
+        $urlFirmada = URL::signedRoute('users.index');
+        return redirect()->away($urlFirmada);
+    }
+    public function createusers(){
+        $urlFirmada = URL::signedRoute('users.create');
+        return redirect()->away($urlFirmada);
+    }
+    public function editusers(string $id){
+        $urlFirmada = URL::signedRoute('edit',['id' => $id]);
+        return redirect()->away($urlFirmada);
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -37,7 +50,7 @@ class UserController extends Controller
             'roles' => 'required|exists:roles,name',
         ]);
         if($validator->fails()) {
-            return redirect()->route('users.index')->withErrors($validator->errors());
+            return redirect()->route('signedusers')->withErrors($validator->errors());
         }
         $user = new User();
         $user->name = $request->name;
@@ -45,14 +58,14 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->assignRole($request->roles);
         $user->save();
-        return redirect()->route('users.index')->with('success', 'User created successfully');
+        return redirect()->route('signedusers')->with('success', 'User created successfully');
     }
 
     public function edit(String $id)
     {
         $user = User::find($id);
         $roles = DB::table('users')->select('roles.*')->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')->join('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('users.id', '=', $id)->first();
-        return view('users.edit')->with('user', $user)->with('roles', $roles);
+        return view('editusers')->with('user', $user)->with('roles', $roles);
     }
     /**
      * Display the specified resource.
@@ -75,7 +88,7 @@ class UserController extends Controller
             'rol' => 'required|exists:roles,name',
         ]);
         if($validator->fails()) {
-            return redirect()->route('users.index')->withErrors($validator)->withInput();
+            return redirect()->route('signedusers')->withErrors($validator)->withInput();
         }
         $user->removeRole($user->roles->first());
         $user->name = $request->name;
@@ -83,7 +96,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->assignRole($request->rol);
         $user->save();
-        return redirect()->route('users.index')->with('success', 'User updated successfully');
+        return redirect()->route('signedusers')->with('success', 'User updated successfully');
     }
 
     /**
@@ -93,9 +106,9 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if($user->id == auth()->user()->id) {
-            return redirect()->route('users.index')->with('error', 'You cannot delete yourself');
+            return redirect()->route('signedusers')->with('error', 'You cannot delete yourself');
         }
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User deleted successfully');
+        return redirect()->route('signedusers')->with('success', 'User deleted successfully');
     }
 }

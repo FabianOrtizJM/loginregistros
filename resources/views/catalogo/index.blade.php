@@ -13,21 +13,26 @@
         <a class="navbar-brand" href="#">Catalogo de videojuegos</a>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="/catalogo">Catalogo</a>
+                <a class="nav-link" href="/signed">Catalogo</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/users">Usuarios</a>
+                <a class="nav-link" href="/signedusers">Usuarios</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/inicio">Inicio</a>
+                <a class="nav-link" href="/signedinicio">Inicio</a>
             </li>
         </ul>
       </div>
     </nav>
     <div class="container align-center offset-md-2 col-md-8 p-5">
+      @if(session('error'))
+      <div class="alert alert-danger">
+          {{ session('error') }}
+      </div>
+    @endif
     <table class="table table-success table-striped">
         <thead>
             <th scope="col">ID</th>
@@ -49,7 +54,7 @@
                 <td>{{$catalogo->m_copias}}</td>
                 @role('Administrador|Coordinador')
                 <td>
-                    <a href="/edit/{{$catalogo->id}}" class="btn btn-info">Editar</a>
+                    <a href="/editcatalogo/{{$catalogo->id}}" class="btn btn-info">Editar</a>
                     <form action="/delete/{{$catalogo->id}}" method="POST">
                       @csrf
                       @method('DELETE')
@@ -61,7 +66,7 @@
             @endforeach
         </tbody>
     </table>
-    <a href="catalogo/create" class="btn btn-primary">Crear</a>    
+    <a href="createcatalogo" class="btn btn-primary">Crear</a>    
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>

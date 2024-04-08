@@ -27,7 +27,7 @@
         <label for="" class="form-label">Millones de copias vendidas</label>
         <input id="copias" name="copias" type="text" class="form-control" tabindex="1" value="{{$catalogo->m_copias}}">
     </div>
-    <a href="/catalogo" class="btn btn-secondary">Cancelar</a>
+    <a href="/signed" class="btn btn-secondary">Cancelar</a>
     <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
     </div>

@@ -22,24 +22,30 @@ Route::get('/', function () {
     return view('login');
 });
 
-
-Route::get('/catalogo',[CatalogoController::class,'index'])->name('catalogo')->middleware(['verify.role:Administrador,Coordinador,Usuario','auth']);
-Route::get('/catalogo/create',[CatalogoController::class,'create'])->name('create')->middleware(['verify.role:Administrador,Coordinador','auth']);
+Route::get('/signed',[CatalogoController::class,'signed'])->name('signed')->middleware(['auth']);
+Route::get('/createcatalogo',[CatalogoController::class,'createcatalogo'])->name('createcatalogo')->middleware(['auth']);
+Route::get('/catalogo',[CatalogoController::class,'index'])->name('catalogo')->middleware(['verify.role:Administrador,Coordinador,Usuario','auth','signed']);
+Route::get('/catalogo/create',[CatalogoController::class,'create'])->name('create')->middleware(['verify.role:Administrador,Coordinador','auth','signed']);
 Route::post('/store',[CatalogoController::class,'store'])->name('store')->middleware(['verify.role:Administrador,Coordinador','auth']);
-Route::get('/edit/{id}',[CatalogoController::class,'edit'])->name('edit')->middleware(['verify.role:Administrador,Coordinador','auth']);
+Route::get('/editcatalogo/{id}',[CatalogoController::class,'editcatalogo'])->name('editcatalogo')->middleware(['auth']);
+Route::get('/edit/{id}',[CatalogoController::class,'edit'])->name('edit')->middleware(['verify.role:Administrador,Coordinador','auth','signed']);
 Route::put('/update/{id}',[CatalogoController::class,'update'])->name('update')->middleware(['verify.role:Administrador,Coordinador','auth']);
 Route::delete('/delete/{id}',[CatalogoController::class,'destroy'])->name('delete')->middleware(['verify.role:Administrador,Coordinador','auth']);
 
-Route::get('/users',[UserController::class,'index'])->name('users.index')->middleware(['verify.role:Administrador,Coordinador','auth']);
-Route::get('/users/create',[UserController::class,'create'])->name('users.create')->middleware(['verify.role:Administrador','auth']);
+Route::get('/signedusers',[UserController::class,'signedusers'])->name('signedusers')->middleware(['auth']);
+Route::get('/users',[UserController::class,'index'])->name('users.index')->middleware(['verify.role:Administrador,Coordinador','auth','signed']);
+Route::get('/createusers',[UserController::class,'createusers'])->name('createusers')->middleware(['auth']);
+Route::get('/users/create',[UserController::class,'create'])->name('users.create')->middleware(['verify.role:Administrador','auth','signed']);
 Route::post('/users',[UserController::class,'store'])->name('users.store')->middleware(['verify.role:Administrador','auth']);
-Route::get('/users/{id}/edit',[UserController::class,'edit'])->name('users.edit')->middleware(['verify.role:Administrador','auth']);
+Route::get('/editusers/{id}',[UserController::class,'editusers'])->name('editusers')->middleware(['auth']);
+Route::get('/users/{id}/edit',[UserController::class,'edit'])->name('users.edit')->middleware(['verify.role:Administrador','auth','signed']);
 Route::put('/users/{id}',[UserController::class,'update'])->name('users.update')->middleware(['verify.role:Administrador','auth']);
 Route::delete('/users/{id}',[UserController::class,'destroy'])->name('users.destroy')->middleware(['verify.role:Administrador','auth']);  
 
 Route::get('/login',[AuthController::class,'mostrarFormulariologin'])->name('login');
 Route::get('/registro',[AuthController::class,'mostrarFormularioRegistro'])->name('registro');
-Route::get('/inicio',[AuthController::class,'mostrarFormularioinicio'])->name('inicio');
+Route::get('/signedinicio',[AuthController::class,'signedinicio'])->name('signedinicio')->middleware('auth');
+Route::get('/inicio',[AuthController::class,'mostrarFormularioinicio'])->name('inicio')->middleware('auth','signed');
 
 
 Route::post('/validar-registro',[AuthController::class,'registro'])->name('validar-registro');

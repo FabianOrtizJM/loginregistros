@@ -40,7 +40,7 @@
             @endforeach
         </select>
     </div>
-    <a href="/users" class="btn btn-secondary">Cancelar</a>
+    <a href="/signedusers" class="btn btn-secondary">Cancelar</a>
     <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
     </div>
