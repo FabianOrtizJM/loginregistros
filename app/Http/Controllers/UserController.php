@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = DB::table('users')->select('roles.*')->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')->join('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('users.id', '=', $id)->first();
-        return redirect()->route('editusers')->with('user', $user)->with('roles', $roles);
+        return redirect()->route('editusers',['id' => $id])->with('user', $user)->with('roles', $roles);
     }
     /**
      * Display the specified resource.
