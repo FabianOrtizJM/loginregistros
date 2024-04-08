@@ -28,7 +28,7 @@ class CatalogoController extends Controller
         return redirect()->away($urlFirmada);
     }
     public function editcatalogo(string $id){
-        $urlFirmada = URL::signedRoute('edit',['id' => $id]);
+        $urlFirmada = URL::signedRoute('users.edit',['id' => $id]);
         return redirect()->away($urlFirmada);
     }
     /**
