@@ -12,7 +12,9 @@
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
             <a href="/signed"><button type="button" class="btn btn-success">Catalogo</button></a>
+            @role('Administrador|Coordinador')
             <a href="/signedusers"><button type="button" class="btn btn-success">Usuarios</button></a>
+            @endrole
         </div>
       </nav>
     <div class="container">
