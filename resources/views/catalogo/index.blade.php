@@ -15,9 +15,11 @@
             <li class="nav-item">
                 <a class="nav-link" href="/signed">Catalogo</a>
             </li>
+            @Role('Administrador|Coordinador')
             <li class="nav-item">
                 <a class="nav-link" href="/signedusers">Usuarios</a>
             </li>
+            @endrole
             <li class="nav-item">
                 <a class="nav-link" href="/logout">Logout</a>
             </li>
@@ -66,7 +68,9 @@
             @endforeach
         </tbody>
     </table>
+    @Role("Administrador|Coordinador")
     <a href="createcatalogo" class="btn btn-primary">Crear</a>    
+    @endrole
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
