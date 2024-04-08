@@ -34,6 +34,7 @@ class UserController extends Controller
         $urlFirmada = URL::signedRoute('users.create');
         return redirect()->away($urlFirmada);
     }
+    
     public function editusers(string $id){
         $urlFirmada = URL::signedRoute('usersedit',['id' => $id]);
         return redirect()->away($urlFirmada);
