@@ -84,7 +84,6 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
             'email' => 'required|email|max:50',
-            'password' => 'min:8|max:30|confirmed|nullable',
             'rol' => 'required|exists:roles,name',
         ]);
         if($validator->fails()) {
@@ -93,7 +92,6 @@ class UserController extends Controller
         $user->removeRole($user->roles->first());
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = Hash::make($request->password);
         $user->assignRole($request->rol);
         $user->save();
         return redirect()->route('signedusers')->with('success', 'User updated successfully');
