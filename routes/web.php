@@ -38,7 +38,7 @@ Route::get('/createusers',[UserController::class,'createusers'])->name('createus
 Route::get('/users/create',[UserController::class,'create'])->name('users.create')->middleware(['verify.role:Administrador','auth','signed']);
 Route::post('/users',[UserController::class,'store'])->name('users.store')->middleware(['verify.role:Administrador','auth']);
 Route::get('/editusers/{id}',[UserController::class,'editusers'])->name('editusers')->middleware(['auth']);
-Route::get('/users/{id}/edit',[UserController::class,'edit'])->name('users.edit')->middleware(['verify.role:Administrador','auth','signed']);
+Route::get('/users/{id}/edit',[UserController::class,'edit'])->name('usersedit')->middleware(['verify.role:Administrador','auth','signed']);
 Route::put('/users/{id}',[UserController::class,'update'])->name('users.update')->middleware(['verify.role:Administrador','auth']);
 Route::delete('/users/{id}',[UserController::class,'destroy'])->name('users.destroy')->middleware(['verify.role:Administrador','auth']);  
 
