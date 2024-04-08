@@ -35,6 +35,7 @@
             <option value="Usuario" @if ($roles->id == 2) selected @endif>Usuario</option>
         </select>
     </div>
+    </div>
     <a href="/signedusers" class="btn btn-secondary">Cancelar</a>
     <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
