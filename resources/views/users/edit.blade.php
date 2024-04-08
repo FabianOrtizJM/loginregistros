@@ -28,14 +28,6 @@
         <label for="email" class="form-label">Email</label>
         <input id="email" name="email" type="email" class="form-control" tabindex="1" value="{{$user->email}}">
     </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input id="password" name="password" type="password" class="form-control" tabindex="1" >
-    </div>
-    <div class="mb-3">
-        <label for="password_confirmation" class="form-label">Confirm Password</label>
-        <input id="password_confirmation" name="password_confirmation" type="password" class="form-control" tabindex="1" >
-    </div>
     <div>
         <label for="roles" class="form-label">Roles</label>
         <select name="rol" id="rol" class="form-select">
