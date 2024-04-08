@@ -35,7 +35,7 @@ class UserController extends Controller
         return redirect()->away($urlFirmada);
     }
     public function editusers(string $id){
-        $urlFirmada = URL::signedRoute('users.edit',['id' => $id]);
+        $urlFirmada = URL::signedRoute('user.edit',['id' => $id]);
         return redirect()->away($urlFirmada);
     }
     /**
@@ -65,7 +65,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = DB::table('users')->select('roles.*')->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')->join('roles', 'model_has_roles.role_id', '=', 'roles.id')->where('users.id', '=', $id)->first();
-        return redirect()->route('editusers',['id' => $id])->with('user', $user)->with('roles', $roles);
+        return view('users.edit')->with('user', $user)->with('roles', $roles);
     }
     /**
      * Display the specified resource.
