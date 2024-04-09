@@ -45,7 +45,7 @@ Route::delete('/users/{id}',[UserController::class,'destroy'])->name('users.dest
 Route::get('/login',[AuthController::class,'mostrarFormulariologin'])->name('login');
 Route::get('/registro',[AuthController::class,'mostrarFormularioRegistro'])->name('registro');
 Route::get('/signedinicio',[AuthController::class,'signedinicio'])->name('signedinicio')->middleware('auth');
-Route::get('/inicio',[AuthController::class,'mostrarFormularioinicio'])->name('inicio')->middleware('auth','signed');
+Route::get('/inicio',[AuthController::class,'mostrarFormularioinicio'])->name('inicio')->middleware('auth','signed', 'check.vpn');
 
 
 Route::post('/validar-registro',[AuthController::class,'registro'])->name('validar-registro');
