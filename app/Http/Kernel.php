@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\VerifySignedUrl::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verify.role' => \App\Http\Middleware\VerifyRol::class,
+        'check.vpn' => \App\Http\Middleware\CheckVpn::class
     ];
 }
