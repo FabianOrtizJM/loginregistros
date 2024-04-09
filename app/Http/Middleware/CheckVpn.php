@@ -16,7 +16,7 @@ class CheckVpn
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user()->hasRole('Invitado')){
+        if($request->user()->hasRole('Usuario')){
             $allowedIps= ['10.124.2.7'];
             $ip = $request->ip();
             if(in_array($ip, $allowedIps)){
