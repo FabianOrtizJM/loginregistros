@@ -26,6 +26,16 @@ class CheckVpn
                 return redirect()->route('inicio');
             }
         }
+        if($request->user()->hasRole('Administrador')){
+            $allowedIps= ['10.124.2.7'];
+            $ip = $request->ip();
+            if(!in_array($ip, $allowedIps)){
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('inicio');
+            }
+        }
         return $next($request);
     }
 }
