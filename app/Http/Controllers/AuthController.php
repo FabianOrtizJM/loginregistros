@@ -152,6 +152,8 @@ class AuthController extends Controller
             $urlFirmada = URL::signedRoute('inicio');
             return redirect()->away($urlFirmada);
         }
+        $user->token_login = '';
+        $user->save();
         return redirect()->back()->withErrors(['error'=> 'Código de verificación incorrecto']);
     }
 
