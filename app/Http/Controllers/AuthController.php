@@ -142,7 +142,7 @@ class AuthController extends Controller
     {
         $request->validate(['code_verification' => 'required']);
         $encrypt = $user->token_login;
-        if($user->token_login == ''){
+        if($user->token_login == '' || $user->token_login == null){
             return redirect()->back()->withErrors(['error'=> 'No se ha solicitado un código de verificación']);
         }
         $deencrypt = Crypt::decryptString($encrypt);
