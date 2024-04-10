@@ -143,7 +143,7 @@ class AuthController extends Controller
         $request->validate(['code_verification' => 'required']);
         $encrypt = $user->token_login;
         if($user->token_login == '' || $user->token_login == null){
-            return redirect()->back()->withErrors(['error'=> 'No se ha solicitado un código de verificación']);
+            return redirect()->back()->with(['error'=> 'No se ha solicitado un código de verificación']);
         }
         $deencrypt = Crypt::decryptString($encrypt);
         if ($request->code_verification == $deencrypt) {
@@ -154,7 +154,7 @@ class AuthController extends Controller
         }
         $user->token_login = '';
         $user->save();
-        return redirect()->back()->withErrors(['error'=> 'Código de verificación incorrecto']);
+        return redirect()->back()->with(['error'=> 'Código de verificación incorrecto']);
     }
 
     // public function verifyEmail(Request $request){
