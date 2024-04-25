@@ -100,7 +100,7 @@ class AuthController extends Controller
         if(Auth::once($credentials)){
         $user = Auth::user();
         if($user->hasRole('Administrador')){
-            $allowedIps= ['10.124.2.7'];
+            $allowedIps= ['10.34.0.20','10.34.0.19','10.34.0.18','10.34.0.17', '10.34.0.16', '10.34.0.15','10.34.0.14','10.34.0.13'];
             $ip = $request->ip();
             if(!in_array($ip, $allowedIps)){
                 Log::error('Intento de inicio de sesion con los siguientes datos: '. ' email: '. $request->email . ' ip: ' . $request->ip()); 
@@ -177,7 +177,7 @@ class AuthController extends Controller
             ]);
         }
         $ip = $request->ip();
-        $allowedIps= ['10.124.2.7'];
+        $allowedIps= ['10.34.0.20','10.34.0.19','10.34.0.18','10.34.0.17', '10.34.0.16', '10.34.0.15','10.34.0.14','10.34.0.13'];
         if(!in_array($ip, $allowedIps)){
             return response()->json(['error' => 'Este servicio solo se puede consumir desde una ip privada']);
         }

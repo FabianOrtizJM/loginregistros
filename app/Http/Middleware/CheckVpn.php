@@ -17,7 +17,7 @@ class CheckVpn
     public function handle(Request $request, Closure $next): Response
     {
         if($request->user()->hasRole('Usuario')){
-            $allowedIps= ['10.124.2.7'];
+            $allowedIps= ['10.34.0.20','10.34.0.19','10.34.0.18','10.34.0.17', '10.34.0.16', '10.34.0.15','10.34.0.14','10.34.0.13'];
             $ip = $request->ip();
             if(in_array($ip, $allowedIps)){
                 Auth::logout();
@@ -27,7 +27,7 @@ class CheckVpn
             }
         }
         if($request->user()->hasRole('Administrador')){
-            $allowedIps= ['10.124.2.7'];
+            $allowedIps= ['10.34.0.20','10.34.0.19','10.34.0.18','10.34.0.17', '10.34.0.16', '10.34.0.15','10.34.0.14','10.34.0.13'];
             $ip = $request->ip();
             if(!in_array($ip, $allowedIps)){
                 Auth::logout();
